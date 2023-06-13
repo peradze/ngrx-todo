@@ -29,7 +29,7 @@ public class TaskController {
             return ResponseEntity.ok(taskRepository.findById(taskId).get());
         }
 
-        throw new RuntimeException("Task not found by id: " + taskId);
+        throw new RuntimeException("Task.ts not found by id: " + taskId);
     }
 
     @PostMapping()
@@ -46,7 +46,7 @@ public class TaskController {
             return ResponseEntity.ok(save);
         }
 
-        throw new RuntimeException("Task not fount by id: " + taskById);
+        throw new RuntimeException("Task.ts not fount by id: " + taskById);
     }
 
     @DeleteMapping("/{taskId}")
@@ -57,6 +57,6 @@ public class TaskController {
             return ResponseEntity.accepted().build();
         }
 
-        throw new RuntimeException("Task not found by id: " + taskId);
+        throw new RuntimeException("Task.ts not found by id: " + taskId);
     }
 }

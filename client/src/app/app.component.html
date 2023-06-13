@@ -1,1 +1,33 @@
-<router-outlet></router-outlet>
+<div class="container">
+  <h1 style="text-align: center">Todo APP</h1>
+  <div class="card">
+    <div>
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Task</mat-label>
+        <input matInput type="text" [formControl]="nameController" (keyup.enter)="addTask()">
+      </mat-form-field>
+
+      <button mat-flat-button [disabled]=" nameController.invalid" color="primary" type="button"
+              (click)="addTask()" class="w-full mb-4"><mat-icon>add</mat-icon> Add</button>
+    </div>
+
+    <div *ngFor="let task of tasks$ | async">
+      <div class="task">
+        <div (click)="toggleComplete(task)" [class.completed]="task.isComplete" class="task__title-container">
+          <div class="task__title">
+            {{task.name}}
+          </div>
+        </div>
+        <div class="task__delete">
+          <button mat-button color="warn" type="button" (click)="deleteTask(task)"><mat-icon>delete</mat-icon></button>
+        </div>
+
+      </div>
+
+    </div>
+    <div *ngIf="loading$ | async" class="mt-4">
+      <mat-progress-bar  mode="indeterminate" color="primary"></mat-progress-bar>
+    </div>
+  </div>
+</div>
+

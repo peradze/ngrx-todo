@@ -21,7 +21,7 @@ public class TodoApplication {
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
 						.allowedMethods(HttpMethod.GET.name(), HttpMethod.POST.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name())
-						.allowedOrigins("http://localhost:4300");
+						.allowedOrigins("http://localhost:4200");
 			}
 		};
 	}
