@@ -5,6 +5,8 @@ import { TaskState } from './state/task.reducer';
 import { TaskPageAction } from './state';
 import { Task } from './Task';
 import { FormControl, Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +16,7 @@ import { FormControl, Validators } from '@angular/forms';
 export class AppComponent implements OnInit {
   tasks$ = this.store.select(selectTasks);
   loading$ = this.store.select(selectLoading);
-  error$ = this.store.select(selectError);
+  error$: Observable<HttpErrorResponse> = this.store.select(selectError);
   nameController = new FormControl('', Validators.required);
 
   constructor(private store: Store<{ tasks: TaskState }>) {}
