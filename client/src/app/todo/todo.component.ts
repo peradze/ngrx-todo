@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { selectError, selectLoading, selectTasks } from './state/task.selector';
 import { Observable } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { TaskPageAction } from './state';
 import { Task } from './models/Task';
+import { selectError, selectLoading, selectTasks } from './tasks.feature';
 
 @Component({
   selector: 'app-todo',

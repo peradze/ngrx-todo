@@ -12,7 +12,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { TaskEffect } from './state/task.effect';
-import { FEATURE_KEY, reducers } from './task-feature.state';
+import { tasksFeature } from './tasks.feature';
 
 @NgModule({
   declarations: [TodoComponent],
@@ -26,7 +26,7 @@ import { FEATURE_KEY, reducers } from './task-feature.state';
     MatInputModule,
     MatProgressBarModule,
     ReactiveFormsModule,
-    StoreModule.forFeature(FEATURE_KEY, reducers, {}),
+    StoreModule.forFeature(tasksFeature),
     EffectsModule.forFeature([TaskEffect]),
   ],
 })
