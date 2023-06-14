@@ -4,7 +4,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Task } from './models/Task';
-import { selectError, selectLoading, selectTasks } from './tasks.feature';
+import { selectAllTask, selectError, selectLoading } from './tasks.feature';
 import { TaskPageActions } from './state/task-page.action';
 
 @Component({
@@ -13,7 +13,7 @@ import { TaskPageActions } from './state/task-page.action';
   styleUrls: ['./todo.component.scss'],
 })
 export class TodoComponent implements OnInit {
-  tasks$ = this.store.select(selectTasks);
+  tasks$ = this.store.select(selectAllTask);
   loading$ = this.store.select(selectLoading);
   error$: Observable<HttpErrorResponse> = this.store.select(selectError);
   nameController = new FormControl('', Validators.required);
