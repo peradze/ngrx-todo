@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { Task } from '../Task';
+import { Task } from '../models/Task';
 import { TaskAPIAction, TaskPageAction } from './index';
 
 export interface TaskState {
@@ -11,7 +11,7 @@ export interface TaskState {
 export const initialState: TaskState = {
   tasks: [],
   loading: false,
-  error: null
+  error: null,
 };
 
 export const taskReducer = createReducer(
@@ -20,34 +20,32 @@ export const taskReducer = createReducer(
   on(TaskAPIAction.loadTasksSuccess, (state, { tasks }) => ({
     ...state,
     tasks,
-    loading: false
+    loading: false,
   })),
   on(TaskAPIAction.loadTasksFailure, (state, { error }) => ({
     ...state,
     loading: false,
-    error
+    error,
   })),
   on(TaskPageAction.createTask, (state) => ({ ...state, loading: true })),
   on(TaskAPIAction.createTaskSuccess, (state, { task }) => ({
     ...state,
     tasks: [...state.tasks, task],
-    loading: false
+    loading: false,
   })),
   on(TaskAPIAction.createTaskFailure, (state, { error }) => ({ ...state, loading: false, error })),
   on(TaskPageAction.updateTask, (state) => ({ ...state, loading: true })),
   on(TaskAPIAction.updateTaskSuccess, (state, { task }) => ({
     ...state,
     tasks: state.tasks.map((t) => (t.id === task.id ? task : t)),
-    loading: false
+    loading: false,
   })),
   on(TaskAPIAction.updateTaskFailure, (state, { error }) => ({ ...state, loading: false, error })),
   on(TaskPageAction.deleteTask, (state) => ({ ...state, loading: true })),
   on(TaskAPIAction.deleteTaskSuccess, (state, { taskId }) => ({
     ...state,
     tasks: state.tasks.filter((t) => t.id !== taskId),
-    loading: false
+    loading: false,
   })),
-  on(TaskAPIAction.deleteTaskFailure, (state, { error }) => ({ ...state, loading: false, error }))
+  on(TaskAPIAction.deleteTaskFailure, (state, { error }) => ({ ...state, loading: false, error })),
 );
-
-
