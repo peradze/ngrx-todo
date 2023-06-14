@@ -1,7 +1,12 @@
-import { createAction, props } from '@ngrx/store';
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { Task } from '../models/Task';
 
-export const enter = createAction('[Task Page] Enter');
-export const createTask = createAction('[Task Page] Create Task', props<{ task: Task }>());
-export const updateTask = createAction('[Task Page] Update Task', props<{ task: Task }>());
-export const deleteTask = createAction('[Task Page] Delete Task', props<{ taskId: number }>());
+export const TaskPageActions = createActionGroup({
+  source: 'Task Page',
+  events: {
+    Enter: emptyProps(),
+    'Create Task': props<{ task: Task }>(),
+    'Update Task': props<{ task: Task }>(),
+    'Delete Task': props<{ taskId: number }>(),
+  },
+});

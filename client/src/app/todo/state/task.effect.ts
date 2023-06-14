@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { TaskService } from '../services/task.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { TaskAPIAction, TaskPageAction } from './index';
 import { catchError, concatMap, exhaustMap, map, mergeMap, of } from 'rxjs';
+import { TaskPageActions } from './task-page.action';
+import { TaskAPIActions } from './task-api.action';
 
 @Injectable()
 export class TaskEffect {
   loadTasks$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(TaskPageAction.enter),
+      ofType(TaskPageActions.enter),
       exhaustMap(() =>
         this.taskService.getAll().pipe(
-          map((tasks) => TaskAPIAction.loadTasksSuccess({ tasks })),
-          catchError((error) => of(TaskAPIAction.loadTasksFailure({ error }))),
+          map((tasks) => TaskAPIActions.loadTasksSuccess({ tasks })),
+          catchError((error) => of(TaskAPIActions.loadTasksFailure({ error }))),
         ),
       ),
     ),
@@ -20,11 +21,11 @@ export class TaskEffect {
 
   createTask$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(TaskPageAction.createTask),
+      ofType(TaskPageActions.createTask),
       concatMap(({ task }) =>
         this.taskService.create(task).pipe(
-          map((createdTask) => TaskAPIAction.createTaskSuccess({ task: createdTask })),
-          catchError((error) => of(TaskAPIAction.createTaskFailure({ error }))),
+          map((createdTask) => TaskAPIActions.createTaskSuccess({ task: createdTask })),
+          catchError((error) => of(TaskAPIActions.createTaskFailure({ error }))),
         ),
       ),
     ),
@@ -32,11 +33,11 @@ export class TaskEffect {
 
   updateTask$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(TaskPageAction.updateTask),
+      ofType(TaskPageActions.updateTask),
       concatMap(({ task }) =>
         this.taskService.update(task).pipe(
-          map((updatedTask) => TaskAPIAction.updateTaskSuccess({ task: updatedTask })),
-          catchError((error) => of(TaskAPIAction.updateTaskFailure({ error }))),
+          map((updatedTask) => TaskAPIActions.updateTaskSuccess({ task: updatedTask })),
+          catchError((error) => of(TaskAPIActions.updateTaskFailure({ error }))),
         ),
       ),
     ),
@@ -44,11 +45,11 @@ export class TaskEffect {
 
   deleteTask$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(TaskPageAction.deleteTask),
+      ofType(TaskPageActions.deleteTask),
       mergeMap(({ taskId }) =>
         this.taskService.delete(taskId).pipe(
-          map(() => TaskAPIAction.deleteTaskSuccess({ taskId })),
-          catchError((error) => of(TaskAPIAction.deleteTaskFailure({ error }))),
+          map(() => TaskAPIActions.deleteTaskSuccess({ taskId })),
+          catchError((error) => of(TaskAPIActions.deleteTaskFailure({ error }))),
         ),
       ),
     ),

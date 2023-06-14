@@ -3,9 +3,9 @@ import { Observable } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { TaskPageAction } from './state';
 import { Task } from './models/Task';
 import { selectError, selectLoading, selectTasks } from './tasks.feature';
+import { TaskPageActions } from './state/task-page.action';
 
 @Component({
   selector: 'app-todo',
@@ -21,19 +21,19 @@ export class TodoComponent implements OnInit {
   constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.store.dispatch(TaskPageAction.enter());
+    this.store.dispatch(TaskPageActions.enter());
   }
 
   toggleComplete(task: Task) {
     let updatedTask = { ...task, isComplete: !task.isComplete };
-    this.store.dispatch(TaskPageAction.updateTask({ task: updatedTask }));
+    this.store.dispatch(TaskPageActions.updateTask({ task: updatedTask }));
   }
 
   addTask() {
-    this.store.dispatch(TaskPageAction.createTask({ task: { name: this.nameController.value! } }));
+    this.store.dispatch(TaskPageActions.createTask({ task: { name: this.nameController.value! } }));
   }
 
   deleteTask(task: Task) {
-    this.store.dispatch(TaskPageAction.deleteTask({ taskId: task.id! }));
+    this.store.dispatch(TaskPageActions.deleteTask({ taskId: task.id! }));
   }
 }
